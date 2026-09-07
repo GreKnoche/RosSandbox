@@ -1,0 +1,734 @@
+<?xml version="1.0" ?>
+<!--
+  LEGO MINDSTORMS Education EV3 Robot Educator driving base.
+
+  Geometry follows the official Gyro Sensor Driving Base and Ultrasonic
+  Sensor Driving Base instruction PDFs (same chassis, both sensors fitted)
+  plus LEGO Education DriveBase numbers: 56 mm wheels, 118 mm axle track.
+
+  Technic module M = 8 mm. base_link origin is the midpoint of the wheel
+  axles; +X forward (ultrasonic), +Y left, +Z up. Spawn the model at
+  z = wheel_radius so the tires sit on the ground plane.
+-->
+<sdf version="1.11">
+  <model name="ev3">
+    <self_collide>false</self_collide>
+
+    <!-- Combined brick + motors + Technic frame. Mass ~ brick with pack + 2 large motors + beams. -->
+    <link name="base_link">
+      <inertial>
+        <pose>-0.015 0 0.026 0 0 0</pose>
+        <mass>0.475</mass>
+        <inertia>
+          <ixx>0.00053</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00081</iyy>
+          <iyz>0</iyz>
+          <izz>0.00082</izz>
+        </inertia>
+      </inertial>
+
+      <!-- Education EV3 brick: ports 1–4 at +X, A–D at −X, screen up. -->
+      <visual name="brick">
+        <pose>-0.015 0 0.045 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.128 0.084 0.034</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.88 0.88 0.86 1</ambient>
+          <diffuse>0.93 0.93 0.91 1</diffuse>
+          <specular>0.15 0.15 0.15 1</specular>
+        </material>
+      </visual>
+      <visual name="brick_screen">
+        <pose>0.006 0 0.063 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.055 0.070 0.003</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.08 0.10 0.09 1</ambient>
+          <diffuse>0.10 0.13 0.11 1</diffuse>
+        </material>
+      </visual>
+      <visual name="brick_buttons">
+        <pose>-0.038 0 0.063 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.028 0.042 0.004</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.22 0.23 0.24 1</ambient>
+          <diffuse>0.28 0.29 0.30 1</diffuse>
+        </material>
+      </visual>
+      <visual name="brick_ports_front">
+        <pose>0.048 0 0.045 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.004 0.072 0.018</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.25 0.26 0.27 1</ambient>
+          <diffuse>0.32 0.33 0.34 1</diffuse>
+        </material>
+      </visual>
+      <visual name="brick_ports_rear">
+        <pose>-0.078 0 0.045 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.004 0.072 0.018</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.25 0.26 0.27 1</ambient>
+          <diffuse>0.32 0.33 0.34 1</diffuse>
+        </material>
+      </visual>
+      <collision name="brick_collision">
+        <pose>-0.015 0 0.045 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.128 0.084 0.034</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <!-- Large motors: 5×5×13.5 modules, axle through the 5×5 body. -->
+      <visual name="motor_left">
+        <pose>-0.014 0.021 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.108 0.040 0.040</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.56 0.57 1</ambient>
+          <diffuse>0.62 0.63 0.64 1</diffuse>
+        </material>
+      </visual>
+      <visual name="motor_right">
+        <pose>-0.014 -0.021 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.108 0.040 0.040</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.56 0.57 1</ambient>
+          <diffuse>0.62 0.63 0.64 1</diffuse>
+        </material>
+      </visual>
+      <visual name="hub_left">
+        <pose>0 0.043 0 1.5708 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.012</radius>
+            <length>0.008</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.70 0.08 0.07 1</ambient>
+          <diffuse>0.79 0.10 0.09 1</diffuse>
+        </material>
+      </visual>
+      <visual name="hub_right">
+        <pose>0 -0.043 0 1.5708 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.012</radius>
+            <length>0.008</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.70 0.08 0.07 1</ambient>
+          <diffuse>0.79 0.10 0.09 1</diffuse>
+        </material>
+      </visual>
+      <collision name="motor_left_collision">
+        <pose>-0.014 0.021 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.108 0.040 0.040</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="motor_right_collision">
+        <pose>-0.014 -0.021 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.108 0.040 0.040</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <!-- White Technic side beams that clamp the brick to the motors. -->
+      <visual name="beam_left">
+        <pose>-0.010 0.046 0.028 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.064 0.008 0.048</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.92 0.92 0.90 1</ambient>
+          <diffuse>0.96 0.96 0.94 1</diffuse>
+        </material>
+      </visual>
+      <visual name="beam_right">
+        <pose>-0.010 -0.046 0.028 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.064 0.008 0.048</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.92 0.92 0.90 1</ambient>
+          <diffuse>0.96 0.96 0.94 1</diffuse>
+        </material>
+      </visual>
+      <visual name="frame_cross">
+        <pose>-0.030 0 -0.004 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.016 0.070 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.58 0.59 0.60 1</ambient>
+          <diffuse>0.66 0.67 0.68 1</diffuse>
+        </material>
+      </visual>
+      <!-- Front 7-module beam the ultrasonic bracket pins onto. -->
+      <visual name="front_beam">
+        <pose>0.048 0 -0.004 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.008 0.056 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.58 0.59 0.60 1</ambient>
+          <diffuse>0.66 0.67 0.68 1</diffuse>
+        </material>
+      </visual>
+      <!-- Rear caster fork (grey/red Technic cup). -->
+      <visual name="caster_fork">
+        <pose>-0.070 0 -0.010 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.024 0.024 0.016</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.45 0.46 0.47 1</ambient>
+          <diffuse>0.52 0.53 0.54 1</diffuse>
+        </material>
+      </visual>
+    </link>
+
+    <!-- Tire 56×28 ZR on rim 30.4×14. Link rolled so cylinder +Z is the axle. -->
+    <link name="wheel_left_link">
+      <pose>0 0.059 0 1.5708 0 0</pose>
+      <inertial>
+        <mass>0.022</mass>
+        <inertia>
+          <ixx>0.00000575</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000575</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000862</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.028</radius>
+            <length>0.026</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.4</mu>
+              <mu2>1.4</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1e6</kp>
+              <kd>100</kd>
+              <max_vel>0.5</max_vel>
+              <min_depth>0.0005</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="tire">
+        <geometry>
+          <cylinder>
+            <radius>0.028</radius>
+            <length>0.028</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.06 0.06 0.06 1</ambient>
+          <diffuse>0.08 0.08 0.08 1</diffuse>
+        </material>
+      </visual>
+      <visual name="rim">
+        <geometry>
+          <cylinder>
+            <radius>0.017</radius>
+            <length>0.018</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.55 0.56 0.57 1</ambient>
+          <diffuse>0.70 0.71 0.72 1</diffuse>
+        </material>
+      </visual>
+    </link>
+
+    <link name="wheel_right_link">
+      <pose>0 -0.059 0 1.5708 0 0</pose>
+      <inertial>
+        <mass>0.022</mass>
+        <inertia>
+          <ixx>0.00000575</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000575</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000862</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.028</radius>
+            <length>0.026</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.4</mu>
+              <mu2>1.4</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1e6</kp>
+              <kd>100</kd>
+              <max_vel>0.5</max_vel>
+              <min_depth>0.0005</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="tire">
+        <geometry>
+          <cylinder>
+            <radius>0.028</radius>
+            <length>0.028</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.06 0.06 0.06 1</ambient>
+          <diffuse>0.08 0.08 0.08 1</diffuse>
+        </material>
+      </visual>
+      <visual name="rim">
+        <geometry>
+          <cylinder>
+            <radius>0.017</radius>
+            <length>0.018</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.55 0.56 0.57 1</ambient>
+          <diffuse>0.70 0.71 0.72 1</diffuse>
+        </material>
+      </visual>
+    </link>
+
+    <!-- Steel ball in the rear Technic cup. Low friction so it does not fight turns. -->
+    <link name="caster_link">
+      <pose>-0.070 0 -0.020 0 0 0</pose>
+      <inertial>
+        <mass>0.012</mass>
+        <inertia>
+          <ixx>0.00000031</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000031</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000031</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <sphere>
+            <radius>0.008</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.02</mu>
+              <mu2>0.02</mu2>
+              <slip1>0.05</slip1>
+              <slip2>0.05</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="ball">
+        <geometry>
+          <sphere>
+            <radius>0.008</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <ambient>0.35 0.36 0.38 1</ambient>
+          <diffuse>0.45 0.46 0.48 1</diffuse>
+          <specular>0.6 0.6 0.6 1</specular>
+        </material>
+      </visual>
+    </link>
+
+    <!-- Gyro on the rear L-beam tower; red arrows face +Z so it measures yaw. -->
+    <link name="gyro_link">
+      <pose>-0.088 0 0.052 0 0 0</pose>
+      <inertial>
+        <mass>0.018</mass>
+        <inertia>
+          <ixx>0.0000018</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0000018</iyy>
+          <iyz>0</iyz>
+          <izz>0.0000018</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.030 0.030 0.020</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="body">
+        <geometry>
+          <box>
+            <size>0.030 0.030 0.020</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.88 0.88 0.86 1</ambient>
+          <diffuse>0.93 0.93 0.91 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cap">
+        <pose>0 0 0.011 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.022 0.022 0.003</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.22 0.23 0.24 1</ambient>
+          <diffuse>0.28 0.29 0.30 1</diffuse>
+        </material>
+      </visual>
+      <visual name="yaw_mark">
+        <pose>0 0 0.013 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.006</radius>
+            <length>0.002</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.70 0.08 0.07 1</ambient>
+          <diffuse>0.79 0.10 0.09 1</diffuse>
+        </material>
+      </visual>
+      <visual name="mount">
+        <pose>0.018 0 -0.006 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.016 0.016 0.024</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.92 0.92 0.90 1</ambient>
+          <diffuse>0.96 0.96 0.94 1</diffuse>
+        </material>
+      </visual>
+      <sensor name="imu_sensor" type="imu">
+        <always_on>true</always_on>
+        <update_rate>20</update_rate>
+        <topic>imu</topic>
+        <visualize>false</visualize>
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.002</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.002</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.015</stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+        </imu>
+      </sensor>
+    </link>
+
+    <!--
+      Ultrasonic on the front 7-hole beam, eyes just below axle height.
+      Origin is the midpoint between the two transducers, +X forward.
+      A narrow gpu_lidar cone stands in for the ~30° US beam; bringup
+      converts the scan to sensor_msgs/Range on /ultrasonic.
+    -->
+    <link name="ultrasonic_link">
+      <pose>0.078 0 -0.004 0 0 0</pose>
+      <inertial>
+        <mass>0.025</mass>
+        <inertia>
+          <ixx>0.0000047</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0000047</iyy>
+          <iyz>0</iyz>
+          <izz>0.0000047</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <pose>-0.008 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.028 0.050 0.030</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="body">
+        <pose>-0.008 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.024 0.048 0.030</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.88 0.88 0.86 1</ambient>
+          <diffuse>0.93 0.93 0.91 1</diffuse>
+        </material>
+      </visual>
+      <visual name="face">
+        <pose>0.005 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.004 0.048 0.030</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.10 0.10 0.10 1</ambient>
+          <diffuse>0.12 0.12 0.12 1</diffuse>
+        </material>
+      </visual>
+      <visual name="eye_left">
+        <pose>0.008 0.012 0 0 1.5708 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.008</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.05 0.05 0.05 1</ambient>
+          <diffuse>0.08 0.08 0.08 1</diffuse>
+        </material>
+      </visual>
+      <visual name="eye_right">
+        <pose>0.008 -0.012 0 0 1.5708 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.008</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.05 0.05 0.05 1</ambient>
+          <diffuse>0.08 0.08 0.08 1</diffuse>
+        </material>
+      </visual>
+      <visual name="ring_left">
+        <pose>0.012 0.012 0 0 1.5708 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.011</radius>
+            <length>0.002</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.70 0.08 0.07 1</ambient>
+          <diffuse>0.79 0.10 0.09 1</diffuse>
+        </material>
+      </visual>
+      <visual name="ring_right">
+        <pose>0.012 -0.012 0 0 1.5708 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.011</radius>
+            <length>0.002</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.70 0.08 0.07 1</ambient>
+          <diffuse>0.79 0.10 0.09 1</diffuse>
+        </material>
+      </visual>
+      <visual name="whisker_left">
+        <pose>0 0.040 0 1.5708 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.002</radius>
+            <length>0.032</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.08 0.08 0.08 1</ambient>
+          <diffuse>0.12 0.12 0.12 1</diffuse>
+        </material>
+      </visual>
+      <visual name="whisker_right">
+        <pose>0 -0.040 0 1.5708 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.002</radius>
+            <length>0.032</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.08 0.08 0.08 1</ambient>
+          <diffuse>0.12 0.12 0.12 1</diffuse>
+        </material>
+      </visual>
+      <sensor name="ultrasonic" type="gpu_lidar">
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <topic>ultrasonic</topic>
+        <visualize>true</visualize>
+        <lidar>
+          <scan>
+            <horizontal>
+              <samples>7</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.25</min_angle>
+              <max_angle>0.25</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.03</min>
+            <max>2.55</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.005</stddev>
+          </noise>
+        </lidar>
+      </sensor>
+    </link>
+
+    <joint name="wheel_left_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel_left_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-1.79769e+308</lower>
+          <upper>1.79769e+308</upper>
+        </limit>
+      </axis>
+    </joint>
+    <joint name="wheel_right_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel_right_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-1.79769e+308</lower>
+          <upper>1.79769e+308</upper>
+        </limit>
+      </axis>
+    </joint>
+    <joint name="caster_joint" type="ball">
+      <parent>base_link</parent>
+      <child>caster_link</child>
+    </joint>
+    <joint name="gyro_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>gyro_link</child>
+    </joint>
+    <joint name="ultrasonic_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>ultrasonic_link</child>
+    </joint>
+
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+      <left_joint>wheel_left_joint</left_joint>
+      <right_joint>wheel_right_joint</right_joint>
+      <wheel_separation>0.118</wheel_separation>
+      <wheel_radius>0.028</wheel_radius>
+      <topic>/model/ev3/cmd_vel</topic>
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+      <odom_publish_frequency>20</odom_publish_frequency>
+      <max_linear_velocity>0.15</max_linear_velocity>
+      <min_linear_velocity>-0.15</min_linear_velocity>
+      <max_angular_velocity>1.2</max_angular_velocity>
+      <min_angular_velocity>-1.2</min_angular_velocity>
+    </plugin>
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+      <joint_name>wheel_left_joint</joint_name>
+      <joint_name>wheel_right_joint</joint_name>
+    </plugin>
+    <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+    </plugin>
+  </model>
+</sdf>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ev3_gz_gazebo</name>
+  <version>0.1.0</version>
+  <description>Generated LEGO-tabletop Gazebo world for the EV3 Nav2 lab.</description>
+  <maintainer email="dev@example.com">EV3 Nav Lab</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>python3</buildtool_depend>
+  <depend>ev3_gz_description</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

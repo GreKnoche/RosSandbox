@@ -1,0 +1,37 @@
+# Bridge Gazebo Harmonic onto the same Nav2 robot contract as the laptop backend.
+# /ultrasonic/scan is the raw one-beam-cone lidar; scan_to_range publishes Range.
+# DiffDrive odom/IMU stay on /odom/perfect and /imu/perfect. sensor_drift
+# republishes /odom, /imu, and odom -> base_link (do not bridge DiffDrive TF).
+# Do not bridge PosePublisher (/model/ev3/pose): those frames are prefixed
+# ev3/... and would hide the URDF tree that robot_state_publisher builds.
+---
+- ros_topic_name: "/cmd_vel"
+  gz_topic_name: "/model/ev3/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: ROS_TO_GZ
+- ros_topic_name: "/clock"
+  gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/odom/perfect"
+  gz_topic_name: "/model/ev3/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/imu/perfect"
+  gz_topic_name: "/imu"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  gz_type_name: "gz.msgs.IMU"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/ultrasonic/scan"
+  gz_topic_name: "/ultrasonic"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/joint_states"
+  gz_topic_name: "/world/ev3_lab/model/ev3/joint_state"
+  ros_type_name: "sensor_msgs/msg/JointState"
+  gz_type_name: "gz.msgs.Model"
+  direction: GZ_TO_ROS

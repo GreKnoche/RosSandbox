@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ev3_gz_bringup</name>
+  <version>0.1.0</version>
+  <description>Launch Gazebo Harmonic plus ros_gz_bridge onto the EV3 Nav2 robot contract.</description>
+  <maintainer email="dev@example.com">EV3 Nav Lab</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>ros2launch</exec_depend>
+  <exec_depend>teleop_twist_keyboard</exec_depend>
+  <exec_depend>ev3_gz_description</exec_depend>
+  <exec_depend>ev3_gz_gazebo</exec_depend>
+  <exec_depend>sdformat_urdf</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

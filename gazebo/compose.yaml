@@ -1,0 +1,36 @@
+services:
+  gazebo:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: ev3-nav-lab-gazebo:local
+    # Match the desktop user so FastDDS/X11 share /dev/shm and the X cookie.
+    user: "1000:1000"
+    group_add:
+      - "44"
+      - "992"
+    network_mode: host
+    ipc: host
+    env_file:
+      - localhost.env
+    environment:
+      - DISPLAY=${DISPLAY}
+      - XAUTHORITY=${XAUTHORITY}
+      - HOME=/tmp
+      - XDG_RUNTIME_DIR=/tmp/runtime-ev3
+      - QT_X11_NO_MITSHM=1
+      - GZ_VERSION=harmonic
+    devices:
+      - /dev/dri
+    volumes:
+      - ./src:/ws/src
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${XAUTHORITY}:${XAUTHORITY}:ro
+    stdin_open: true
+    tty: true
+    command: >
+      bash -lc "mkdir -p -m 0700 /tmp/runtime-ev3 && mkdir -p /tmp/build /tmp/install /tmp/log
+      && source /opt/ros/jazzy/setup.bash
+      && colcon --log-base /tmp/log build --symlink-install --build-base /tmp/build --install-base /tmp/install
+      && source /tmp/install/setup.bash
+      && ros2 launch ev3_gz_bringup sim.launch.py"
