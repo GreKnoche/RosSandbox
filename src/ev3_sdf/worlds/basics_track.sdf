@@ -356,12 +356,5 @@
         </visual>
       </link>
     </model>
-
-    <!-- EV3 auf der Startplatte, Blickrichtung +x -->
-    <include>
-      <uri>model://ev3</uri>
-      <name>ev3</name>
-      <pose>0 0 0.001 0 0 0</pose>
-    </include>
   </world>
 </sdf>

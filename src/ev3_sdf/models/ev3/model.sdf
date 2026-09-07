@@ -80,7 +80,7 @@
     </link>
 
     <link name="left_wheel">
-      <pose>0 0.075 0.028 1.570796 0 0</pose>
+      <pose>0 0.075 0.028 0 0 0</pose>
       <inertial>
         <mass>0.05</mass>
         <inertia>
@@ -90,6 +90,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <pose>0 0 0 1.570796 0 0</pose>
         <geometry>
           <cylinder>
             <radius>0.028</radius>
@@ -108,6 +109,7 @@
         </surface>
       </collision>
       <visual name="visual">
+        <pose>0 0 0 1.570796 0 0</pose>
         <geometry>
           <cylinder>
             <radius>0.028</radius>
@@ -122,7 +124,7 @@
     </link>
 
     <link name="right_wheel">
-      <pose>0 -0.075 0.028 1.570796 0 0</pose>
+      <pose>0 -0.075 0.028 0 0 0</pose>
       <inertial>
         <mass>0.05</mass>
         <inertia>
@@ -132,6 +134,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <pose>0 0 0 1.570796 0 0</pose>
         <geometry>
           <cylinder>
             <radius>0.028</radius>
@@ -150,6 +153,7 @@
         </surface>
       </collision>
       <visual name="visual">
+        <pose>0 0 0 1.570796 0 0</pose>
         <geometry>
           <cylinder>
             <radius>0.028</radius>
@@ -206,7 +210,7 @@
       <parent>base_link</parent>
       <child>left_wheel</child>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz expressed_in="base_link">0 1 0</xyz>
         <limit>
           <lower>-1e16</lower>
           <upper>1e16</upper>
@@ -218,7 +222,7 @@
       <parent>base_link</parent>
       <child>right_wheel</child>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz expressed_in="base_link">0 1 0</xyz>
         <limit>
           <lower>-1e16</lower>
           <upper>1e16</upper>
