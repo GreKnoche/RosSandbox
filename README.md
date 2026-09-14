@@ -4,11 +4,36 @@ ROS-2-Jazzy-Sandbox: EV3 als SDF in Gazebo Harmonic, `cmd_vel` und Odometrie als
 
 ## Voraussetzungen
 
-- ROS 2 Jazzy
-- Gazebo Harmonic (`sudo apt install ros-jazzy-ros-gz`)
-- `colcon`, Python 3
+- Docker und Docker Compose (empfohlen)
+- oder nativ: ROS 2 Jazzy, Gazebo Harmonic (`sudo apt install ros-jazzy-ros-gz`), `colcon`, Python 3
 
-## Bauen
+## Docker (empfohlen)
+
+Auf dem Rechner mit X11:
+
+```bash
+xhost +local:docker
+cd RosSandbox
+docker compose up --build
+```
+
+`src/` ist ins Image gemountet; Übungsdateien ändern, Container neu starten reicht meist. Übungen ohne ROS auf dem Host:
+
+```bash
+docker compose exec gazebo bash -lc \
+  "source /opt/ros/jazzy/setup.bash && source /tmp/install/setup.bash && ros2 run ev3_exercises ex01_hello"
+```
+
+Teleop vom Host (wenn Jazzy dort installiert ist). `localhost.env` setzen, damit FastDDS und `gz topic` denselben Loopback-Transport wie Docker nutzen (`network_mode: host`):
+
+```bash
+source /opt/ros/jazzy/setup.bash
+set -a && source localhost.env && set +a
+ros2 daemon stop
+ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.15}}"
+```
+
+## Bauen (nativ)
 
 ```bash
 cd RosSandbox
@@ -16,7 +41,7 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-## Simulation
+## Simulation (nativ)
 
 ```bash
 ros2 launch ev3_sdf sim.launch.py
