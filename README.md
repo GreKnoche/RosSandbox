@@ -24,11 +24,13 @@ docker compose exec gazebo bash -lc \
   "source /opt/ros/jazzy/setup.bash && source /tmp/install/setup.bash && ros2 run ev3_exercises ex01_hello"
 ```
 
-Teleop vom Host (wenn Jazzy dort installiert ist). `localhost.env` setzen, damit FastDDS und `gz topic` denselben Loopback-Transport wie Docker nutzen (`network_mode: host`):
+Teleop vom Host (wenn Jazzy dort installiert ist). Die Loopback-Variablen für FastDDS/Gazebo sind im Docker-Setup bereits gesetzt; für den Host kannst du sie auch lokal exportieren:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-set -a && source localhost.env && set +a
+export GZ_IP=127.0.0.1
+export GZ_PARTITION=ev3
+export FASTDDS_BUILTIN_TRANSPORTS=UDPv4
 ros2 daemon stop
 ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.15}}"
 ```

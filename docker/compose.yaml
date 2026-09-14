@@ -10,8 +10,6 @@ services:
       - "992"
     network_mode: host
     ipc: host
-    env_file:
-      - localhost.env
     environment:
       - DISPLAY=${DISPLAY}
       - XAUTHORITY=${XAUTHORITY}
@@ -19,10 +17,13 @@ services:
       - XDG_RUNTIME_DIR=/tmp/runtime-ev3
       - QT_X11_NO_MITSHM=1
       - GZ_VERSION=harmonic
+      - GZ_IP=127.0.0.1
+      - GZ_PARTITION=ev3
+      - FASTDDS_BUILTIN_TRANSPORTS=UDPv4
     devices:
       - /dev/dri
     volumes:
-      - ./src:/ws/src
+      - ../src:/ws/src
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ${XAUTHORITY}:${XAUTHORITY}:ro
     stdin_open: true
