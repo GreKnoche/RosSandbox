@@ -11,7 +11,7 @@ CX, CY = 0.875, 0.975
 RES = 2048
 
 # Inner corridor of the L-track (slightly under the walls).
-L_X0, L_X1 = -0.28, 2.03
+L_X0, L_X1 = -0.53, 2.03
 L_Y0, L_Y1 = -0.38, 0.38
 E_X0, E_X1 = 1.37, 2.03
 E_Y0, E_Y1 = -0.38, 2.33
@@ -109,7 +109,7 @@ def main():
     img[edges & street] = white
 
     # Yellow center dashes on the L
-    mid_h = _band(y, 0.0, LINE_W) & (x >= -0.12) & (x <= 1.58) & _dash(x)
+    mid_h = _band(y, 0.0, LINE_W) & (x >= -0.38) & (x <= 1.58) & _dash(x)
     mid_v = _band(x, 1.70, LINE_W) & (y >= 0.18) & (y <= 2.12) & _dash(y)
     img[mid_h | mid_v] = yellow
 

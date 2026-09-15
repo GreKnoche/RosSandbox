@@ -124,19 +124,19 @@
     <!-- Hinterwand am Start -->
     <model name="wall_back">
       <static>true</static>
-      <pose>-0.25 0 0.10 0 0 0</pose>
+      <pose>-0.5 0 0.0 0 0 0</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.05 0.75 0.20</size>
+              <size>0.05 0.75 0.10</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.05 0.75 0.20</size>
+              <size>0.05 0.75 0.10</size>
             </box>
           </geometry>
           <material>
@@ -147,22 +147,22 @@
       </link>
     </model>
 
-    <!-- Rechte Wand der Geraden (y negativ) -->
+    <!-- Rechte Wand der Geraden (y negativ), bis zur Hinterwand bei x=-0.5 -->
     <model name="wall_south">
       <static>true</static>
-      <pose>0.875 -0.35 0.10 0 0 0</pose>
+      <pose>0.75 -0.35 0.0 0 0 0</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
             <box>
-              <size>2.25 0.05 0.20</size>
+              <size>2.50 0.05 0.10</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>2.25 0.05 0.20</size>
+              <size>2.50 0.05 0.10</size>
             </box>
           </geometry>
           <material>
@@ -173,22 +173,22 @@
       </link>
     </model>
 
-    <!-- Linke Wand der Geraden bis zur Kurve -->
+    <!-- Linke Wand der Geraden bis zur Kurve, bis zur Hinterwand bei x=-0.5 -->
     <model name="wall_north_approach">
       <static>true</static>
-      <pose>0.575 0.35 0.10 0 0 0</pose>
+      <pose>0.45 0.35 0.0 0 0 0</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
             <box>
-              <size>1.65 0.05 0.20</size>
+              <size>1.90 0.05 0.10</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>1.65 0.05 0.20</size>
+              <size>1.90 0.05 0.10</size>
             </box>
           </geometry>
           <material>
@@ -202,19 +202,19 @@
     <!-- Äußere Wand nach der 90°-Kurve (x positiv) -->
     <model name="wall_east">
       <static>true</static>
-      <pose>2.00 0.75 0.10 0 0 0</pose>
+      <pose>2.00 0.75 0.0 0 0 0</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.05 2.20 0.20</size>
+              <size>0.05 2.20 0.10</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.05 2.20 0.20</size>
+              <size>0.05 2.20 0.10</size>
             </box>
           </geometry>
           <material>
@@ -228,19 +228,19 @@
     <!-- Innere Wand nach der Kurve -->
     <model name="wall_west_exit">
       <static>true</static>
-      <pose>1.40 1.125 0.10 0 0 0</pose>
+      <pose>1.40 1.125 0.0 0 0 0</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.05 1.55 0.20</size>
+              <size>0.05 1.55 0.10</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.05 1.55 0.20</size>
+              <size>0.05 1.55 0.10</size>
             </box>
           </geometry>
           <material>
@@ -254,19 +254,19 @@
     <!-- Abschlusswand hinter dem Ziel -->
     <model name="wall_end">
       <static>true</static>
-      <pose>1.70 2.3 0.10 0 0 0</pose>
+      <pose>1.70 2.3 0.0 0 0 0</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.65 0.05 0.20</size>
+              <size>0.65 0.05 0.10</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.65 0.05 0.20</size>
+              <size>0.65 0.05 0.10</size>
             </box>
           </geometry>
           <material>
@@ -277,7 +277,7 @@
       </link>
     </model>
 
-    <!-- Außenwand Süden -->
+    <!-- Außenrahmen Süden -->
     <model name="frame_south">
       <static>true</static>
       <pose>0.875 -4.025 0.10 0 0 0</pose>
@@ -295,7 +295,7 @@
       </link>
     </model>
     
-    <!-- Außenwand Norden -->
+    <!-- Außenrahmen Norden -->
     <model name="frame_north">
       <static>true</static>
       <pose>0.875 6.0 0.10 0 0 0</pose>
@@ -313,7 +313,7 @@
       </link>
     </model>
 
-    <!-- Außenwand Ost -->
+    <!-- Außenrahmen Ost -->
     <model name="frame_east">
       <static>true</static>
       <pose>5.875 0.975 0.10 0 0 0</pose>
@@ -331,7 +331,7 @@
       </link>
     </model>
 
-    <!-- Außenwand Westen -->
+    <!-- Außenrahmen Westen -->
     <model name="frame_west">
       <static>true</static>
       <pose>-4.125 0.975 0.10 0 0 0</pose>
