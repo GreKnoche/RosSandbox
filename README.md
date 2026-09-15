@@ -1,8 +1,16 @@
 # RosSandbox
+Voraussetzung: Docker
 
-ROS-2-Jazzy-Sandbox: EV3 in Gazebo Harmonic, Übungen zu `cmd_vel` und Odometrie.
+Anpassungen von Übungsdateien die Ros-Nodes erzeugen unter `src/ev3_excercises/ev3_excercises`
+Lösungen in `src/ev3_excercises/ev3_excercises/solutions`
 
-Voraussetzung: Docker mit Compose, grafische Sitzung (X11).
+## ROS kurz
+
+Ein **Knoten** ist ein kleines Programm. Knoten reden nicht direkt, sondern über **Topics** (Kanäle), z. B. `/cmd_vel` (fahren) und `/odom` (Position).
+
+Ein **Publisher** schreibt auf ein Topic, ein **Subscriber** liest davon. Gleicher Name, gleicher Nachrichtentyp.
+
+Ein **Timer** ruft regelmäßig eine Funktion auf, z. B. alle 0,1 s. Zum Fahren braucht ihr das: `/cmd_vel` gilt nur kurz, ohne neue Nachricht bleibt der Roboter stehen.
 
 ## Container starten
 
@@ -11,8 +19,6 @@ Terminal 1 — Gazebo (bleibt laufen):
 ```bash
 ./start-simulation.sh
 ```
-
-Das gibt X11 für Docker frei und startet den `gazebo`-Container (`docker/compose.yaml`). Der EV3 steht auf der **grünen** Startplatte (Blick +x). Gelbe Tore testen Geradeausfahrt, die 90°-Kurve das Drehen, die **rote** Platte ist das Ziel.
 
 ## Übungen starten
 
@@ -29,7 +35,7 @@ Ohne Argument listet das Skript die Übungen. Abbruch mit Strg+C; Gazebo weiterl
 
 ## Übungen
 
-Schülerdateien mit `# LÜCKE N:` liegen unter `src/ev3_exercises/ev3_exercises/`. Lösungen nur zum Abgleich unter `src/ev3_exercises/ev3_exercises/solutions/`.
+Übungsdateien mit `# LÜCKE N:` liegen unter `src/ev3_exercises/ev3_exercises/`. Lösungen nur zum Abgleich unter `src/ev3_exercises/ev3_exercises/solutions/`.
 
 | Start | Datei | Inhalt |
 | --- | --- | --- |
