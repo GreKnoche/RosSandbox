@@ -17,7 +17,7 @@ def yaw_from_quat(q) -> float:
 
 class OdomListener(Node):
     def __init__(self):
-        super().__init__('ex06_odom')
+        super().__init__('uebung6')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
         self.sub = self.create_subscription(Odometry, '/odom', self.on_odom, 10)
 

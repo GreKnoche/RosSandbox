@@ -7,7 +7,7 @@ Vorher:
   ros2 launch ev3_sdf sim.launch.py
 
 Start:
-  ros2 run ev3_exercises ex04_timed_move
+  ./excercise.sh 4
 
 Der Timer läuft mit 10 Hz. 30 Ticks = 3.0 s.
 """
@@ -20,7 +20,7 @@ from rclpy.parameter import Parameter
 
 class TimedMove(Node):
     def __init__(self):
-        super().__init__('ex04_timed_move')
+        super().__init__('uebung4')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
         # LÜCKE 1: Publisher auf '/cmd_vel'

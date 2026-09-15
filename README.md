@@ -20,8 +20,9 @@ docker compose up --build
 `src/` ist ins Image gemountet; Übungsdateien ändern, Container neu starten reicht meist. Übungen ohne ROS auf dem Host:
 
 ```bash
-docker compose exec gazebo bash -lc \
-  "source /opt/ros/jazzy/setup.bash && source /tmp/install/setup.bash && ros2 run ev3_exercises ex01_hello"
+./excercise.sh 1
+./excercise.sh -2
+./excercise.sh --3
 ```
 
 Teleop vom Host (wenn Jazzy dort installiert ist). Die Loopback-Variablen für FastDDS/Gazebo sind im Docker-Setup bereits gesetzt; für den Host kannst du sie auch lokal exportieren:
@@ -69,13 +70,18 @@ ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.15}}"
 
 ## Übungen
 
-Die Nodes in `src/ev3_exercises` haben markierte `# LÜCKE N:`-Stellen. Reihenfolge:
+Die Nodes in `src/ev3_exercises` haben markierte `# LÜCKE N:`-Stellen. Sim starten, danach die Nummer anhängen (`2`, `-2` oder `--2` sind gleich):
 
-1. `ros2 run ev3_exercises ex01_hello` — Node, Timer, Logger
-2. `ros2 run ev3_exercises ex02_drive_forward` — Publisher + `linear.x`
-3. `ros2 run ev3_exercises ex03_turn` — `angular.z`
-4. `ros2 run ev3_exercises ex04_timed_move` — fahren, dann Stopp `(0, 0)`
-5. `ros2 run ev3_exercises ex05_track` — Strecke: vor, 90° links, vor, stop
-6. `ros2 run ev3_exercises ex06_odom` — Subscriber `/odom`
+```bash
+./start-simulation.sh
+./excercise.sh 1
+```
 
-Lösungen (nur zum Abgleich): `ros2 run ev3_exercises ex05_track_solution` usw.
+1. `./excercise.sh 1` — Node, Timer, Logger
+2. `./excercise.sh 2` — Publisher + `linear.x`
+3. `./excercise.sh 3` — `angular.z`
+4. `./excercise.sh 4` — fahren, dann Stopp `(0, 0)`
+5. `./excercise.sh 5` — Strecke: vor, 90° links, vor, stop
+6. `./excercise.sh 6` — Subscriber `/odom`
+
+Lösungen (nur zum Abgleich): `ros2 run ev3_exercises uebung5_solution` usw.

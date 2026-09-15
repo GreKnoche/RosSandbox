@@ -1,24 +1,29 @@
 #!/usr/bin/env python3
-"""Lösung zu Übung 01."""
+"""Lösung zu Übung 03."""
 
 import rclpy
+from geometry_msgs.msg import Twist
 from rclpy.node import Node
 from rclpy.parameter import Parameter
 
 
-class HelloNode(Node):
+class TurnNode(Node):
     def __init__(self):
-        super().__init__('ex01_hello')
+        super().__init__('uebung3')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
-        self.timer = self.create_timer(1.0, self.on_timer)
+        self.pub = self.create_publisher(Twist, '/cmd_vel', 10)
+        self.timer = self.create_timer(0.1, self.on_timer)
 
     def on_timer(self):
-        self.get_logger().info('Hallo EV3-Sandbox')
+        msg = Twist()
+        msg.linear.x = 0.0
+        msg.angular.z = 0.6
+        self.pub.publish(msg)
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = HelloNode()
+    node = TurnNode()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()

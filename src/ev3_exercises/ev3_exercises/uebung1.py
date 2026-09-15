@@ -6,7 +6,7 @@ Ziel: Einen ROS-2-Node starten, der regelmäßig eine Logzeile ausgibt.
 Vorher: nichts (Gazebo nicht nötig).
 
 Start:
-  ros2 run ev3_exercises ex01_hello
+  ./excercise.sh 1
 """
 
 import rclpy
@@ -16,7 +16,7 @@ from rclpy.parameter import Parameter
 
 class HelloNode(Node):
     def __init__(self):
-        super().__init__('ex01_hello')
+        super().__init__('uebung1')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
         # LÜCKE 1: Timer mit 1.0 s Periode, Callback self.on_timer

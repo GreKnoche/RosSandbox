@@ -9,7 +9,7 @@ from rclpy.parameter import Parameter
 
 class TimedMove(Node):
     def __init__(self):
-        super().__init__('ex04_timed_move')
+        super().__init__('uebung4')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
         self.pub = self.create_publisher(Twist, '/cmd_vel', 10)
         self.ticks = 0

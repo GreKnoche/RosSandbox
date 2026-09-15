@@ -11,7 +11,7 @@ Vorher:
   ros2 launch ev3_sdf sim.launch.py
 
 Start:
-  ros2 run ev3_exercises ex05_track
+  ./excercise.sh 5
 
 Strecke (ungefähre Maße):
   Start (grün) bei (0, 0), Blick +x
@@ -32,7 +32,7 @@ DT = 0.1
 
 class TrackDriver(Node):
     def __init__(self):
-        super().__init__('ex05_track')
+        super().__init__('uebung5')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
         # LÜCKE 1: Publisher auf '/cmd_vel'

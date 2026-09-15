@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Übung 02: Vorwärtsfahren mit /cmd_vel
+"""Übung 03: Drehen mit /cmd_vel
 
-Ziel: geometry_msgs/Twist auf /cmd_vel veröffentlichen, linear.x setzen.
+Ziel: Auf der Stelle drehen über Twist.angular.z.
 
 Vorher:
   ros2 launch ev3_sdf sim.launch.py
 
 Start:
-  ros2 run ev3_exercises ex02_drive_forward
+  ./excercise.sh 3
 
-Hinweis: EV3 langsam fahren, ca. 0.15 m/s. Zum Stoppen Strg+C und ggf.
-  ros2 topic pub --once /cmd_vel geometry_msgs/Twist "{}"
+Hinweis: Positives angular.z dreht nach links (Gegenuhrzeigersinn).
+Ca. 0.6 rad/s ist für den EV3 ein guter Startwert.
 """
 
 import rclpy
@@ -19,19 +19,19 @@ from rclpy.node import Node
 from rclpy.parameter import Parameter
 
 
-class DriveForward(Node):
+class TurnNode(Node):
     def __init__(self):
-        super().__init__('ex02_drive_forward')
+        super().__init__('uebung3')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
-        # LÜCKE 1: Publisher anlegen (Typ Twist, Topic '/cmd_vel', Queue 10)
+        # LÜCKE 1: Publisher auf '/cmd_vel', Typ Twist
         self.pub = None
 
         self.timer = self.create_timer(0.1, self.on_timer)
 
     def on_timer(self):
         msg = Twist()
-        # LÜCKE 2: Geradeausgeschwindigkeit in m/s (ca. 0.15), angular.z = 0.0
+        # LÜCKE 2: linear.x = 0.0 (auf der Stelle), angular.z setzen (ca. 0.6)
         # msg.linear.x = ...
         # msg.angular.z = ...
 
@@ -43,7 +43,7 @@ class DriveForward(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = DriveForward()
+    node = TurnNode()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()

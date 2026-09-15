@@ -5,11 +5,11 @@ Ziel: nav_msgs/Odometry auf /odom abonnieren und die Pose loggen.
 
 Vorher:
   ros2 launch ev3_sdf sim.launch.py
-  optional parallel: ros2 run ev3_exercises ex02_drive_forward
+  optional parallel: ./excercise.sh 2
     (bzw. die Lösung, damit sich die Pose ändert)
 
 Start:
-  ros2 run ev3_exercises ex06_odom
+  ./excercise.sh 6
 """
 
 import rclpy
@@ -20,7 +20,7 @@ from rclpy.parameter import Parameter
 
 class OdomListener(Node):
     def __init__(self):
-        super().__init__('ex06_odom')
+        super().__init__('uebung6')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
         # LÜCKE 1: Subscriber auf '/odom', Typ Odometry, Callback self.on_odom

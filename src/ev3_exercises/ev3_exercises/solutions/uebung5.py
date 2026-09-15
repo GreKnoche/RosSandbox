@@ -15,7 +15,7 @@ ANGULAR = 0.6
 
 class TrackDriver(Node):
     def __init__(self):
-        super().__init__('ex05_track')
+        super().__init__('uebung5')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
         self.pub = self.create_publisher(Twist, '/cmd_vel', 10)
         self.elapsed = 0.0
