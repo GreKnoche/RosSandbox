@@ -5,7 +5,13 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable, TimerAction
+from launch.actions import (
+    DeclareLaunchArgument,
+    ExecuteProcess,
+    IncludeLaunchDescription,
+    SetEnvironmentVariable,
+    TimerAction,
+)
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node, SetParameter
@@ -52,6 +58,12 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}],
     )
 
+    follow_camera = ExecuteProcess(
+        cmd=['bash', os.path.join(pkg_share, 'launch', 'follow_ev3_camera.sh')],
+        output='screen',
+        name='follow_ev3_camera',
+    )
+
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -75,5 +87,6 @@ def generate_launch_description():
         SetParameter(name='use_sim_time', value=use_sim_time),
         gz_sim,
         TimerAction(period=3.0, actions=[spawn]),
+        TimerAction(period=4.5, actions=[follow_camera]),
         bridge,
     ])
