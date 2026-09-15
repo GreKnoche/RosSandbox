@@ -72,7 +72,17 @@ def generate_launch_description():
             '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
             '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
             '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+            '/world/basics_track/material_color@ros_gz_interfaces/msg/MaterialColor]gz.msgs.MaterialColor',
+            '/world/basics_track/light_config@ros_gz_interfaces/msg/Light]gz.msgs.Light',
         ],
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time}],
+    )
+
+    led_relay = Node(
+        package='ev3_sdf',
+        executable='led_relay.py',
+        name='led_relay',
         output='screen',
         parameters=[{'use_sim_time': use_sim_time}],
     )
@@ -89,4 +99,5 @@ def generate_launch_description():
         TimerAction(period=3.0, actions=[spawn]),
         TimerAction(period=4.5, actions=[follow_camera]),
         bridge,
+        led_relay,
     ])

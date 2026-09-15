@@ -15,7 +15,7 @@ Aufruf: ./excercise.sh <n>
 Die Simulation muss laufen (./start-simulation.sh).
 
 Übungen:
-  1  Hello-Node (Timer, Logger)
+  1  Hello-Node (Timer, rote LED)
   2  Vorwärtsfahren (/cmd_vel, linear.x)
   3  Drehen (angular.z)
   4  Zeitgesteuert fahren und stoppen

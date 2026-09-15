@@ -1,16 +1,16 @@
 # RosSandbox
-Voraussetzung: Docker
+Voraussetzung Docker; für Type-Annotations und Funktionsbeschreibungen in der IDE VS Code nutzen oder sudo apt install ros-jazzy-desktop lokal installieren.
 
 Anpassungen von Übungsdateien die Ros-Nodes erzeugen unter `src/ev3_excercises/ev3_excercises`
 Lösungen in `src/ev3_excercises/ev3_excercises/solutions`
 
 ## ROS kurz
 
-Ein **Knoten** ist ein kleines Programm. Knoten reden nicht direkt, sondern über **Topics** (Kanäle), z. B. `/cmd_vel` (fahren) und `/odom` (Position).
+Ein **Knoten** ist ein kleines Programm. Knoten reden nicht direkt, sondern über **Topics** (Kanäle), z. B. `/cmd_vel` (fahren), `/led` (Lampe) und `/odom` (Position).
 
 Ein **Publisher** schreibt auf ein Topic, ein **Subscriber** liest davon. Gleicher Name, gleicher Nachrichtentyp.
 
-Ein **Timer** ruft regelmäßig eine Funktion auf, z. B. alle 0,1 s. Zum Fahren braucht ihr das: `/cmd_vel` gilt nur kurz, ohne neue Nachricht bleibt der Roboter stehen.
+Ein **Timer** ruft regelmäßig eine Funktion auf, z. B. alle 1 s für die LED oder alle 0,1 s zum Fahren. `/cmd_vel` gilt nur kurz, ohne neue Nachricht bleibt der Roboter stehen. Die rote Lampe auf dem EV3 hört auf `/led` (`True` = an, `False` = aus).
 
 ## Container starten
 
@@ -39,7 +39,7 @@ Ohne Argument listet das Skript die Übungen. Abbruch mit Strg+C; Gazebo weiterl
 
 | Start | Datei | Inhalt |
 | --- | --- | --- |
-| `./excercise.sh 1` | `src/ev3_exercises/ev3_exercises/uebung1.py` | Hello-Node: Timer und Logger, ohne Gazebo |
+| `./excercise.sh 1` | `src/ev3_exercises/ev3_exercises/uebung1.py` | Timer: rote LED auf dem EV3 blinken (`/led`) |
 | `./excercise.sh 2` | `src/ev3_exercises/ev3_exercises/uebung2.py` | Publisher auf `/cmd_vel`, vorwärts (`linear.x`) |
 | `./excercise.sh 3` | `src/ev3_exercises/ev3_exercises/uebung3.py` | Auf der Stelle drehen (`angular.z`) |
 | `./excercise.sh 4` | `src/ev3_exercises/ev3_exercises/uebung4.py` | Ein paar Sekunden fahren, dann Stopp `(0, 0)` |
