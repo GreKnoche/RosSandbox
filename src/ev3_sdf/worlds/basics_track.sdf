@@ -277,6 +277,79 @@
       </link>
     </model>
 
+    <!-- Außenwand Süden -->
+    <model name="frame_south">
+      <static>true</static>
+      <pose>0.875 -4.025 0.10 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>10.05 0.05 0.20</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>10.05 0.05 0.20</size></box></geometry>
+          <material>
+            <ambient>0.35 0.38 0.42 1</ambient>
+            <diffuse>0.48 0.50 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- Außenwand Norden -->
+    <model name="frame_north">
+      <static>true</static>
+      <pose>0.875 6.0 0.10 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>10.05 0.05 0.20</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>10.05 0.05 0.20</size></box></geometry>
+          <material>
+            <ambient>0.35 0.38 0.42 1</ambient>
+            <diffuse>0.48 0.50 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Außenwand Ost -->
+    <model name="frame_east">
+      <static>true</static>
+      <pose>5.875 0.975 0.10 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.05 10.05 0.20</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 10.05 0.20</size></box></geometry>
+          <material>
+            <ambient>0.35 0.38 0.42 1</ambient>
+            <diffuse>0.48 0.50 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Außenwand Westen -->
+    <model name="frame_west">
+      <static>true</static>
+      <pose>-4.125 0.975 0.10 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.05 10.05 0.20</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 10.05 0.20</size></box></geometry>
+          <material>
+            <ambient>0.35 0.38 0.42 1</ambient>
+            <diffuse>0.48 0.50 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
     <!-- Tor 1: Geradeausfahrt -->
     <model name="gate1_left">
       <static>true</static>
