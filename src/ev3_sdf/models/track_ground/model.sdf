@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<sdf version="1.11">
+  <model name="track_ground">
+    <static>true</static>
+  </model>
+</sdf>
