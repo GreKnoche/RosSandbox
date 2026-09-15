@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """Lösung zu Übung 05: Grün → Tore → 90° links → rote Zielplatte."""
 
-import math
-
 import rclpy
 from geometry_msgs.msg import Twist
 from rclpy.node import Node
@@ -11,6 +9,8 @@ from rclpy.parameter import Parameter
 DT = 0.1
 LINEAR = 0.15
 ANGULAR = 0.6
+# Kürzer als der Idealwert von 2.6 s, da der EV3 in der Simulation nachdreht.
+TURN_DURATION = 2.1
 
 
 class TrackDriver(Node):
@@ -20,7 +20,7 @@ class TrackDriver(Node):
         self.pub = self.create_publisher(Twist, '/cmd_vel', 10)
         self.elapsed = 0.0
         self.t_straight_1 = 11.5
-        self.t_turn = (math.pi / 2.0) / ANGULAR
+        self.t_turn = TURN_DURATION
         self.t_straight_2 = 10.5
         self.timer = self.create_timer(DT, self.on_timer)
         self.get_logger().info(

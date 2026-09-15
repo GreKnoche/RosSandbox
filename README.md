@@ -22,13 +22,14 @@ Terminal 1 — Gazebo (bleibt laufen):
 
 ## Übungen starten
 
-Terminal 2 — sobald die Sim läuft. Nummer anhängen; `2`, `-2` und `--2` sind gleich:
+Terminal 2 — sobald die Sim läuft. Nummer anhängen; `2`, `-2` und `--2` sind gleich. Mit `-s` wird die Lösung gestartet:
 
 ```bash
 ./excercise.sh 1
 ./excercise.sh 2
 ./excercise.sh -2
 ./excercise.sh --3
+./excercise.sh -1 -s
 ```
 
 Ohne Argument listet das Skript die Übungen. Abbruch mit Strg+C; Gazebo weiterlaufen lassen und den Node einfach neu starten.

@@ -16,7 +16,7 @@ Start:
 Strecke (ungefähre Maße):
   Start (grün) bei (0, 0), Blick +x
   Gerade ~1.7 m  →  bei 0.15 m/s etwa 11–12 s
-  90° links      →  bei 0.6 rad/s etwa 2.6 s  (pi/2 / 0.6)
+  90° links      →  bei 0.6 rad/s etwa 2.1 s (für die Simulation kalibriert)
   Gerade ~1.5 m  →  bei 0.15 m/s etwa 10 s
 
 Timer: 10 Hz, 1 s = 10 Ticks.
