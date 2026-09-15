@@ -3,8 +3,11 @@
 
 Ziel: nav_msgs/Odometry auf /odom abonnieren und die Pose loggen.
 
+Odometrie schätzt aus der Bewegung der Räder, wo sich der Roboter befindet.
+Sie liefert seine Position und Orientierung, kann aber mit der Zeit ungenau werden.
+
 Vorher:
-  ros2 launch ev3_sdf sim.launch.py
+  ./start-simulation.sh
   optional parallel: ./excercise.sh 2
     (bzw. die Lösung, damit sich die Pose ändert)
 

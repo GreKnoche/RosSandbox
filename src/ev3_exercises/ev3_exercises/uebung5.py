@@ -8,7 +8,7 @@ Ziel: Open-Loop-Sequenz auf /cmd_vel:
   4. Stopp
 
 Vorher:
-  ros2 launch ev3_sdf sim.launch.py
+  ./start-simulation.sh
 
 Start:
   ./excercise.sh 5

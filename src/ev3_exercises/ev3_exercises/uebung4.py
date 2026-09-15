@@ -4,7 +4,7 @@
 Ziel: Ein paar Sekunden vorwärts fahren, danach Twist (0, 0) senden.
 
 Vorher:
-  ros2 launch ev3_sdf sim.launch.py
+  ./start-simulation.sh
 
 Start:
   ./excercise.sh 4

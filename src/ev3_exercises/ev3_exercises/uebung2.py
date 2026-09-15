@@ -4,7 +4,7 @@
 Ziel: geometry_msgs/Twist auf /cmd_vel veröffentlichen, linear.x setzen.
 
 Vorher:
-  ros2 launch ev3_sdf sim.launch.py
+  ./start-simulation.sh
 
 Start:
   ./excercise.sh 2
