@@ -23,10 +23,13 @@ class OdomListener(Node):
         super().__init__('uebung6')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
+        # Ein Subscriber empfängt Nachrichten von einem Topic.
         # LÜCKE 1: Subscriber auf '/odom', Typ Odometry, Callback self.on_odom
         # self.sub = self.create_subscription(...)
 
     def on_odom(self, msg: Odometry):
+        """Wird bei jeder neuen Odometry-Nachricht automatisch aufgerufen."""
+        # Odometry enthält unter anderem Position und Orientierung des Roboters.
         pose = msg.pose.pose
         # LÜCKE 2: x, y und Orientierung loggen
         # pose.position.x, pose.position.y, pose.orientation.z / pose.orientation.w

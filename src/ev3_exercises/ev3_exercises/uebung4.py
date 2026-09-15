@@ -23,17 +23,21 @@ class TimedMove(Node):
         super().__init__('uebung4')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
+        # Der Publisher sendet die Geschwindigkeit auf /cmd_vel.
         # LÜCKE 1: Publisher auf '/cmd_vel'
         self.pub = None
 
+        # ticks zählt, wie oft der Timer bereits aufgerufen wurde.
         self.ticks = 0
         # LÜCKE 2: Wie viele Timer-Ticks fahren, bevor gestoppt wird?
         # 10 Hz → 30 Ticks = 3 Sekunden
         self.drive_ticks = 0
 
+        # 0.1 Sekunden pro Aufruf entsprechen 10 Aufrufen pro Sekunde.
         self.timer = self.create_timer(0.1, self.on_timer)
 
     def on_timer(self):
+        """Sendet zuerst einen Fahrbefehl und danach einen Stoppbefehl."""
         msg = Twist()
         if self.ticks < self.drive_ticks:
             # LÜCKE 3: Vorwärtsgeschwindigkeit setzen

@@ -27,6 +27,7 @@ from geometry_msgs.msg import Twist
 from rclpy.node import Node
 from rclpy.parameter import Parameter
 
+# Zeit zwischen zwei Timer-Aufrufen in Sekunden.
 DT = 0.1
 
 
@@ -35,11 +36,14 @@ class TrackDriver(Node):
         super().__init__('uebung5')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
+        # Der Publisher sendet die Fahrbefehle für jede Phase.
         # LÜCKE 1: Publisher auf '/cmd_vel'
         self.pub = None
 
+        # elapsed speichert, wie viele Sekunden seit dem Start vergangen sind.
         self.elapsed = 0.0
 
+        # Die Strecke wird in drei zeitlich gesteuerte Phasen aufgeteilt.
         # LÜCKE 2: Phasen-Zeiten in Sekunden (Gerade, Drehen, Gerade)
         self.t_straight_1 = 0.0
         self.t_turn = 0.0
@@ -49,7 +53,9 @@ class TrackDriver(Node):
         self.get_logger().info('Strecke: fülle die Lücken und fahre Grün → Tore → Kurve → Rot')
 
     def on_timer(self):
+        """Wählt anhand der vergangenen Zeit den nächsten Fahrbefehl."""
         msg = Twist()
+        # t1, t2 und t3 sind die Endzeiten der drei Phasen.
         t1 = self.t_straight_1
         t2 = t1 + self.t_turn
         t3 = t2 + self.t_straight_2

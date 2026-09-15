@@ -24,12 +24,15 @@ class TurnNode(Node):
         super().__init__('uebung3')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
+        # Der Publisher sendet Fahrbefehle an den Roboter.
         # LÜCKE 1: Publisher auf '/cmd_vel', Typ Twist
         self.pub = None
 
+        # Alle 0.1 Sekunden wird ein neuer Fahrbefehl erzeugt.
         self.timer = self.create_timer(0.1, self.on_timer)
 
     def on_timer(self):
+        """Bei Twist steuert angular.z die Drehung um die senkrechte Achse."""
         msg = Twist()
         # LÜCKE 2: linear.x = 0.0 (auf der Stelle), angular.z setzen (ca. 0.6)
         # msg.linear.x = ...

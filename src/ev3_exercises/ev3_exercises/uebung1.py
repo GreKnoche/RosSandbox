@@ -25,15 +25,15 @@ class HelloNode(Node):
 
         self.pub = self.create_publisher(Bool, '/led', 10)
         self.on = False
-        """
-        Timer sind dazu da regelmäßig Daten einzuholen, oder Befehle auszuführen.
-        """
+
+        # Ein Timer ruft in festen Abständen eine Funktion auf.
         # LÜCKE 1: Timer mit 1.0 s Periode, Callback self.on_timer
         # self.timer = self.create_timer(...)
 
     def on_timer(self):
         """
-        
+        Bool ist der ROS-Nachrichtentyp für Wahr/Falsch.
+        Der Wert steht in msg.data.
         """
         # LÜCKE 2: LED umschalten und auf /led publishen
         # self.on = ...

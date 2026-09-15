@@ -24,12 +24,15 @@ class DriveForward(Node):
         super().__init__('uebung2')
         self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
+        # Ein Publisher sendet Nachrichten auf ein Topic.
         # LÜCKE 1: Publisher anlegen (Typ Twist, Topic '/cmd_vel', Queue 10)
         self.pub = None
 
+        # Der Timer ruft self.on_timer alle 0.1 Sekunden auf.
         self.timer = self.create_timer(0.1, self.on_timer)
 
     def on_timer(self):
+        """Twist enthält die lineare Geschwindigkeit und die Drehgeschwindigkeit."""
         msg = Twist()
         # LÜCKE 2: Geradeausgeschwindigkeit in m/s (ca. 0.15), angular.z = 0.0
         # msg.linear.x = ...
