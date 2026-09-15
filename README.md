@@ -1,87 +1,43 @@
 # RosSandbox
 
-ROS-2-Jazzy-Sandbox: EV3 als SDF in Gazebo Harmonic, `cmd_vel` und Odometrie als Basics.
+ROS-2-Jazzy-Sandbox: EV3 in Gazebo Harmonic, Übungen zu `cmd_vel` und Odometrie.
 
-## Voraussetzungen
+Voraussetzung: Docker mit Compose, grafische Sitzung (X11).
 
-- Docker und Docker Compose (empfohlen)
-- oder nativ: ROS 2 Jazzy, Gazebo Harmonic (`sudo apt install ros-jazzy-ros-gz`), `colcon`, Python 3
+## Container starten
 
-## Docker (empfohlen)
-
-Auf dem Rechner mit X11:
+Terminal 1 — Gazebo (bleibt laufen):
 
 ```bash
-xhost +local:docker
-cd RosSandbox
-docker compose up --build
+./start-simulation.sh
 ```
 
-`src/` ist ins Image gemountet; Übungsdateien ändern, Container neu starten reicht meist. Übungen ohne ROS auf dem Host:
+Das gibt X11 für Docker frei und startet den `gazebo`-Container (`docker/compose.yaml`). Der EV3 steht auf der **grünen** Startplatte (Blick +x). Gelbe Tore testen Geradeausfahrt, die 90°-Kurve das Drehen, die **rote** Platte ist das Ziel.
+
+## Übungen starten
+
+Terminal 2 — sobald die Sim läuft. Nummer anhängen; `2`, `-2` und `--2` sind gleich:
 
 ```bash
 ./excercise.sh 1
+./excercise.sh 2
 ./excercise.sh -2
 ./excercise.sh --3
 ```
 
-Teleop vom Host (wenn Jazzy dort installiert ist). Die Loopback-Variablen für FastDDS/Gazebo sind im Docker-Setup bereits gesetzt; für den Host kannst du sie auch lokal exportieren:
-
-```bash
-source /opt/ros/jazzy/setup.bash
-export GZ_IP=127.0.0.1
-export GZ_PARTITION=ev3
-export FASTDDS_BUILTIN_TRANSPORTS=UDPv4
-ros2 daemon stop
-ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.15}}"
-```
-
-## Bauen (nativ)
-
-```bash
-cd RosSandbox
-colcon build --symlink-install
-source install/setup.bash
-```
-
-## Simulation (nativ)
-
-```bash
-ros2 launch ev3_sdf sim.launch.py
-```
-
-Der EV3 steht auf der **grünen** Startplatte (Blick +x). Gelbe Tore testen Geradeausfahrt, die 90°-Kurve das Drehen, die **rote** Platte ist das Ziel.
-
-Topics:
-
-| Topic | Typ | Richtung |
-| --- | --- | --- |
-| `/cmd_vel` | `geometry_msgs/Twist` | fahren |
-| `/odom` | `nav_msgs/Odometry` | Pose |
-| `/clock` | `rosgraph_msgs/Clock` | Sim-Zeit |
-
-Twist: `linear.x` vorwärts (m/s), `angular.z` drehen (rad/s). Für den EV3 langsam bleiben, ca. **0.15 m/s** und **0.6 rad/s**. Positives `angular.z` = links.
-
-Kurztest ohne eigenen Node:
-
-```bash
-ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.15}}"
-```
+Ohne Argument listet das Skript die Übungen. Abbruch mit Strg+C; Gazebo weiterlaufen lassen und den Node einfach neu starten.
 
 ## Übungen
 
-Die Nodes in `src/ev3_exercises` haben markierte `# LÜCKE N:`-Stellen. Sim starten, danach die Nummer anhängen (`2`, `-2` oder `--2` sind gleich):
+Schülerdateien mit `# LÜCKE N:` liegen unter `src/ev3_exercises/ev3_exercises/`. Lösungen nur zum Abgleich unter `src/ev3_exercises/ev3_exercises/solutions/`.
 
-```bash
-./start-simulation.sh
-./excercise.sh 1
-```
+| Start | Datei | Inhalt |
+| --- | --- | --- |
+| `./excercise.sh 1` | `src/ev3_exercises/ev3_exercises/uebung1.py` | Hello-Node: Timer und Logger, ohne Gazebo |
+| `./excercise.sh 2` | `src/ev3_exercises/ev3_exercises/uebung2.py` | Publisher auf `/cmd_vel`, vorwärts (`linear.x`) |
+| `./excercise.sh 3` | `src/ev3_exercises/ev3_exercises/uebung3.py` | Auf der Stelle drehen (`angular.z`) |
+| `./excercise.sh 4` | `src/ev3_exercises/ev3_exercises/uebung4.py` | Ein paar Sekunden fahren, dann Stopp `(0, 0)` |
+| `./excercise.sh 5` | `src/ev3_exercises/ev3_exercises/uebung5.py` | Strecke: vor durch die Tore, 90° links, vor auf Rot, stop |
+| `./excercise.sh 6` | `src/ev3_exercises/ev3_exercises/uebung6.py` | Subscriber auf `/odom`, Pose loggen |
 
-1. `./excercise.sh 1` — Node, Timer, Logger
-2. `./excercise.sh 2` — Publisher + `linear.x`
-3. `./excercise.sh 3` — `angular.z`
-4. `./excercise.sh 4` — fahren, dann Stopp `(0, 0)`
-5. `./excercise.sh 5` — Strecke: vor, 90° links, vor, stop
-6. `./excercise.sh 6` — Subscriber `/odom`
-
-Lösungen (nur zum Abgleich): `ros2 run ev3_exercises uebung5_solution` usw.
+Richtwerte für den EV3: etwa **0.15 m/s** und **0.6 rad/s**. Positives `angular.z` dreht nach links.
